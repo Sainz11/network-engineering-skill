@@ -1,0 +1,50 @@
+{
+  "manufacturer": "Ubiquiti",
+  "model": "NanoStation 5AC Loco",
+  "model_aliases": ["loco5AC", "NS-5ACL"],
+  "hardware_revision": "Gen2",
+  "device_category": "outdoor_radio",
+  "official_spec_url": "https://store.ui.com/products/nanostation-loco5ac",
+  "wireless_bands": [
+    {
+      "band": "5 GHz airMAX ac",
+      "frequency_mhz": "5150 - 5875 MHz (Region Dependent)",
+      "channel_widths_mhz": [10, 20, 30, 40, 50, 60, 80],
+      "antenna_gain_dbi": 13.0,
+      "polarization": "Dual Linear",
+      "throughput_mbps": 450
+    }
+  ],
+  "interfaces": {
+    "count": 1,
+    "type": "RJ45",
+    "speed": "10/100/1000 Mbps Gigabit Ethernet",
+    "auto_mdix": true
+  },
+  "power": {
+    "poe_in": {
+      "supported": true,
+      "type": "24V Passive PoE (Pairs 4, 5+; 7, 8 Return)",
+      "standard_802_3af_supported": false
+    },
+    "max_power_consumption_w": 7.0
+  },
+  "optical_capabilities": {
+    "is_pon": false,
+    "sfp_ports": 0
+  },
+  "operating_system": "airOS 8",
+  "supported_test_procedures": [
+    "PHYS-01",
+    "PHYS-02",
+    "PHYS-03",
+    "PWR-01",
+    "PWR-02",
+    "ETH-01",
+    "ETH-02",
+    "RAD-01",
+    "MGMT-01"
+  ],
+  "notes": "WARNING: Requires 24V Passive PoE. Attempting to power with standard 802.3af/at without 24V instant adapter will fail.",
+  "last_verification_date": "2026-11-19"
+}

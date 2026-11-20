@@ -1,0 +1,60 @@
+{
+  "manufacturer": "MikroTik",
+  "model": "RB750Gr3",
+  "model_aliases": ["hEX", "RouterBOARD 750Gr3"],
+  "hardware_revision": "r3",
+  "device_category": "router",
+  "official_spec_url": "https://mikrotik.com/product/RB750Gr3",
+  "cpu": {
+    "arch": "MMIPS",
+    "model": "MT7621A",
+    "cores": 2,
+    "threads": 4,
+    "nominal_frequency_mhz": 880
+  },
+  "memory": {
+    "ram_mb": 256,
+    "storage_mb": 16,
+    "storage_type": "FLASH"
+  },
+  "power": {
+    "supported_input_voltage_v": "8-30",
+    "max_power_consumption_w": 5,
+    "poe_in": {
+      "supported": true,
+      "type": "Passive PoE",
+      "port": "ether1",
+      "voltage_range": "8-30 V"
+    },
+    "poe_out": {
+      "supported": false
+    }
+  },
+  "interfaces": {
+    "count": 5,
+    "type": "RJ45",
+    "speed": "10/100/1000 Mbps Gigabit Ethernet",
+    "auto_mdix": true,
+    "hardware_switch_chip": "MT7621A (HW Offload capable)"
+  },
+  "wireless_bands": [],
+  "optical_capabilities": {
+    "is_pon": false,
+    "sfp_ports": 0
+  },
+  "firmware_compatibility": {
+    "minimum_routeros": "6.37.1",
+    "recommended_routeros": "7.15+"
+  },
+  "supported_test_procedures": [
+    "PHYS-01",
+    "PHYS-02",
+    "PHYS-03",
+    "PWR-01",
+    "PWR-02",
+    "ETH-01",
+    "ETH-02",
+    "MGMT-01"
+  ],
+  "last_verification_date": "2026-11-19"
+}

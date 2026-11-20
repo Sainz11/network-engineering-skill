@@ -1,0 +1,66 @@
+{
+  "manufacturer": "ZTE",
+  "model": "F670L",
+  "model_aliases": ["ZXHN F670L"],
+  "hardware_revision": "V9.0",
+  "device_category": "ont_onu",
+  "official_spec_url": "https://www.zte.com.cn/global/products/access/gpon_ont/f670l.html",
+  "pon_technology": "GPON (ITU-T G.984)",
+  "optical_capabilities": {
+    "is_pon": true,
+    "connector_type": "SC/UPC or SC/APC",
+    "pon_class": "Class B+",
+    "rx_wavelength_nm": 1490,
+    "tx_wavelength_nm": 1310,
+    "rx_sensitivity_dbm": -28.0,
+    "rx_overload_dbm": -8.0,
+    "rx_power_min_dbm": -28.0,
+    "rx_power_max_dbm": -8.0,
+    "tx_power_min_dbm": 0.5,
+    "tx_power_max_dbm": 5.0,
+    "reference_source": "ZTE ZXHN F670L Specification & ITU-T Class B+"
+  },
+  "interfaces": {
+    "count": 4,
+    "type": "RJ45",
+    "speed": "10/100/1000 Mbps Gigabit Ethernet",
+    "pots_fxs_ports": 1,
+    "usb_ports": 1
+  },
+  "wireless_bands": [
+    {
+      "band": "2.4 GHz",
+      "generation": "Wi-Fi 4 (802.11b/g/n)",
+      "chains": "2x2 MIMO"
+    },
+    {
+      "band": "5 GHz",
+      "generation": "Wi-Fi 5 (802.11ac wave 2)",
+      "chains": "2x2 MU-MIMO"
+    }
+  ],
+  "power": {
+    "input_voltage_v": "12V DC, 1.5A adapter",
+    "max_power_consumption_w": 12.0
+  },
+  "remote_management_protocols": [
+    "OMCI",
+    "TR-069",
+    "WebGUI"
+  ],
+  "supported_test_procedures": [
+    "PHYS-01",
+    "PHYS-02",
+    "PHYS-03",
+    "PWR-01",
+    "PWR-02",
+    "ETH-01",
+    "ETH-02",
+    "OPT-01",
+    "OPT-02",
+    "WIFI-01",
+    "WLAN-02",
+    "MGMT-01"
+  ],
+  "last_verification_date": "2026-11-19"
+}

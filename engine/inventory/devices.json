@@ -1,0 +1,35 @@
+[
+  {
+    "device_id": "RTR-CORE-01",
+    "hostname": "core-rtr01.isp.net",
+    "ip_address": "10.0.0.1",
+    "vendor": "MikroTik",
+    "model": "CCR2004-16G-2S+",
+    "device_category": "router",
+    "port": 22,
+    "protocol": "ssh",
+    "environment": "SIMULATED"
+  },
+  {
+    "device_id": "SW-AGG-01",
+    "hostname": "agg-sw01.isp.net",
+    "ip_address": "10.0.0.2",
+    "vendor": "Cisco",
+    "model": "Catalyst 9300",
+    "device_category": "switch",
+    "port": 22,
+    "protocol": "ssh",
+    "environment": "SIMULATED"
+  },
+  {
+    "device_id": "OLT-GPON-01",
+    "hostname": "olt01.central.isp.net",
+    "ip_address": "10.100.1.10",
+    "vendor": "Huawei",
+    "model": "SmartAX MA5800-X7",
+    "device_category": "ont_onu",
+    "port": 22,
+    "protocol": "ssh",
+    "environment": "SIMULATED"
+  }
+]

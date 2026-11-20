@@ -1,0 +1,63 @@
+{
+  "manufacturer": "Huawei",
+  "model": "HG8245H5",
+  "model_aliases": ["EchoLife HG8245H5"],
+  "hardware_revision": "V1.0",
+  "device_category": "ont_onu",
+  "official_spec_url": "https://e.huawei.com/en/products/enterprise-transmission-access/access/ont/echolife-hg8245h5",
+  "pon_technology": "GPON (ITU-T G.984.1/2/3/4)",
+  "optical_capabilities": {
+    "is_pon": true,
+    "connector_type": "SC/UPC or SC/APC (model variant dependent)",
+    "pon_class": "Class B+",
+    "rx_wavelength_nm": 1490,
+    "tx_wavelength_nm": 1310,
+    "rx_sensitivity_dbm": -27.0,
+    "rx_overload_dbm": -8.0,
+    "rx_power_min_dbm": -27.0,
+    "rx_power_max_dbm": -8.0,
+    "tx_power_min_dbm": 0.5,
+    "tx_power_max_dbm": 5.0,
+    "reference_source": "Huawei EchoLife GPON Terminal Datasheet & ITU-T G.984.2 Class B+"
+  },
+  "interfaces": {
+    "count": 4,
+    "type": "RJ45",
+    "speed": "10/100/1000 Mbps Gigabit Ethernet",
+    "pots_fxs_ports": 2,
+    "usb_ports": 1
+  },
+  "wireless_bands": [
+    {
+      "band": "2.4 GHz",
+      "generation": "Wi-Fi 4 (802.11b/g/n)",
+      "chains": "2x2 MIMO",
+      "antenna_gain_dbi": 2.0
+    }
+  ],
+  "power": {
+    "input_voltage_v": "12V DC, 1.5A external adapter",
+    "max_power_consumption_w": 11.5
+  },
+  "remote_management_protocols": [
+    "OMCI",
+    "TR-069 (CWMP)",
+    "WebGUI",
+    "Telnet/SSH (Restricted)"
+  ],
+  "supported_test_procedures": [
+    "PHYS-01",
+    "PHYS-02",
+    "PHYS-03",
+    "PWR-01",
+    "PWR-02",
+    "ETH-01",
+    "ETH-02",
+    "OPT-01",
+    "OPT-02",
+    "WIFI-01",
+    "WLAN-02",
+    "MGMT-01"
+  ],
+  "last_verification_date": "2026-11-19"
+}

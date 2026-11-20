@@ -1,0 +1,69 @@
+{
+  "manufacturer": "MikroTik",
+  "model": "RB941-2nD",
+  "model_aliases": ["hAP lite", "RouterBOARD 941-2nD"],
+  "hardware_revision": "r2",
+  "device_category": "router",
+  "official_spec_url": "https://mikrotik.com/product/RB941-2nD",
+  "cpu": {
+    "arch": "SMIPS",
+    "model": "QCA9533",
+    "cores": 1,
+    "threads": 1,
+    "nominal_frequency_mhz": 650
+  },
+  "memory": {
+    "ram_mb": 32,
+    "storage_mb": 16,
+    "storage_type": "FLASH"
+  },
+  "power": {
+    "supported_input_voltage_v": "5",
+    "input_connector": "MicroUSB",
+    "max_power_consumption_w": 3.5,
+    "poe_in": {
+      "supported": false
+    },
+    "poe_out": {
+      "supported": false
+    }
+  },
+  "interfaces": {
+    "count": 4,
+    "type": "RJ45",
+    "speed": "10/100 Mbps Fast Ethernet ONLY (Does NOT support Gigabit)",
+    "auto_mdix": true,
+    "hardware_switch_chip": "QCA9533"
+  },
+  "wireless_bands": [
+    {
+      "band": "2.4 GHz",
+      "generation": "Wi-Fi 4 (802.11b/g/n)",
+      "chains": "Dual-chain (2x2 MIMO)",
+      "max_data_rate_mbps": 300,
+      "antenna_gain_dbi": 1.5
+    }
+  ],
+  "optical_capabilities": {
+    "is_pon": false,
+    "sfp_ports": 0
+  },
+  "firmware_compatibility": {
+    "minimum_routeros": "6.28",
+    "recommended_routeros": "6.49.10 LTS / 7.12 (Observe 32MB RAM limits)"
+  },
+  "supported_test_procedures": [
+    "PHYS-01",
+    "PHYS-02",
+    "PHYS-03",
+    "PWR-01",
+    "PWR-02",
+    "ETH-01",
+    "ETH-02",
+    "WIFI-01",
+    "WLAN-02",
+    "MGMT-01"
+  ],
+  "notes": "CRITICAL: Do NOT fail this device for Fast Ethernet (100 Mbps) link negotiation. Hardware PHYs do not support 1000 Mbps.",
+  "last_verification_date": "2026-11-19"
+}

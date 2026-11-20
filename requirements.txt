@@ -1,0 +1,9 @@
+# Runtime dependencies present in the verified Linux test environment.
+# Versions reflect the environment used for the release-candidate verification.
+cryptography==46.0.4
+openpyxl==3.1.5
+Pillow==12.3.0
+PyYAML==6.0.3
+pydantic==2.13.5
+reportlab==4.4.9
+requests==2.32.5

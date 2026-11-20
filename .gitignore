@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / test caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Artifacts and operational audit logs
+artifacts/
+*.log
+audit_trail.jsonl
+engine/audit_trail.jsonl
+
+# Temporary and scratch files
+tmp*
+*_helper*.py
+*.tmp
+*.bak
+*.swp
+
+# Environment and secrets
+.env
+.venv/
+env/
+venv/
+
+# Explicitly retain the test-only auth helper despite the generic helper ignore rule
+!tests/helpers/
+!tests/helpers/auth_test_helper.py
+
+# Additional secret and credential protection
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Local configuration and device exports
+*.conf
+*.backup

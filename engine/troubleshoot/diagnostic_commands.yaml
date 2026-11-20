@@ -1,0 +1,47 @@
+# Diagnostic command catalog for the Troubleshoot module.
+#
+# All entries are safe, vendor-specific READ-ONLY commands.  No WRITE or
+# CRITICAL commands may appear here.  The catalog is validated at startup and
+# enforced as an allowlist before any command is executed.
+
+# ---------------------------------------------------------------------------
+# MikroTik RouterOS
+# ---------------------------------------------------------------------------
+mikrotik:
+  - /system/resource/print
+  - /interface/print
+  - /ip/address/print
+  - /ip/route/print
+  - /ppp/active/print
+  - /system/health/print
+  - /tool/ping count=3 address=1.1.1.1
+
+# ---------------------------------------------------------------------------
+# Cisco IOS / IOS-XE
+# ---------------------------------------------------------------------------
+cisco:
+  - show version
+  - show ip interface brief
+  - show ip route
+  - show interfaces status
+  - show ip protocols
+  - ping 1.1.1.1 repeat 3
+
+# ---------------------------------------------------------------------------
+# Huawei VRP
+# ---------------------------------------------------------------------------
+huawei:
+  - display version
+  - display interface brief
+  - display ip routing-table
+  - display ip interface brief
+  - ping 1.1.1.1
+
+# ---------------------------------------------------------------------------
+# Generic / vendor-agnostic (fallback)
+# ---------------------------------------------------------------------------
+generic:
+  - show version
+  - show ip route
+  - show interfaces
+  - ping 1.1.1.1
