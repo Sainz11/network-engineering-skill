@@ -1,203 +1,179 @@
-<div align="center">AI Network Operations Assistant
-The Brain & The Hands
-A vendor-aware network engineering assistant with a strict separation between operational reasoning and controlled execution.
+<div align="center">⚡ AI Network Operations Assistant
+THE BRAIN × THE HANDS
+A vendor-aware Network Engineering Skill and controlled Operations Engine.
+
+Plan network operations with engineering knowledge. Execute only through explicit policy, authorization, and evidence controls.
 <p>
-  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+"/></a>
-  <a href="https://github.com/network-engineering-skill/actions"><img src="https://github.com/network-engineering-skill/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
-  <img src="https://img.shields.io/badge/Execution-Simulation%20%2F%20Dry%20Run-orange" alt="Simulation and dry-run"/>
-  <img src="https://img.shields.io/badge/Live%20Writes-Disabled-red" alt="Live writes disabled"/>
-</p></div>Overview
-The AI Network Operations Assistant combines network-engineering knowledge with a guarded software execution layer. Its design follows a simple principle:
-The Brain decides what should happen. The Hands enforce what is allowed to happen.
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+"/></a>
+  <a href="https://github.com/Sainz11/network-engineering-skill/actions"><img src="https://img.shields.io/github/actions/workflow/status/Sainz11/network-engineering-skill/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI status"/></a>
+  <img src="https://img.shields.io/badge/AI%20Skill-Codex%20%7C%20Claude-8B5CF6?style=for-the-badge" alt="Codex and Claude skills"/>
+  <img src="https://img.shields.io/badge/Execution-Simulated%20%2F%20Dry--Run-orange?style=for-the-badge" alt="Simulated and dry-run"/>
+  <img src="https://img.shields.io/badge/Live%20Writes-Disabled-red?style=for-the-badge" alt="Live writes disabled"/>
+</p>
+Overview · Features · Install · Usage · Security · Tests
+</div>🧭 Overview
+AI Network Operations Assistant is a two-layer network engineering project. It separates the AI's operational knowledge from the software that enforces execution rules.
+THE BRAIN decides what should happen. THE HANDS enforce what is allowed to happen.
 
-The project uses a two-layer architecture:
-Layer	Component	Responsibility
-The Brain	SKILL.md, provisioning/, quality-control/, references/	Network knowledge, vendor guidance, troubleshooting methodology, SOPs, QC criteria, discovery methodology, and operational safety rules
-The Hands	engine/, scripts/	Controlled execution paths, connectors, vendor adapters, policy enforcement, diagnostics, QC, topology processing, and report generation
-
-
-The layers are designed to work together while remaining independently maintainable. The Skill provides operational reasoning; the Operations Engine applies execution and authorization controls.
-Important: Current readiness
-<blockquote>
-<strong>This repository is a software release candidate for controlled development and lab evaluation. It is not production-ready for live network changes or provisioning.</strong>
-</blockquote>Several integrations are deliberately simulation-only, unavailable, or fail-closed until trusted production providers and real-device validation are completed.
-Area	Current status
-Offline tests and simulated workflows	Implemented and covered by automated tests
-Shared OperationsEngine workflow gateway	Used by all four module workflows when configured; module workflows remain simulated
-Production authentication provider	Placeholder; rejects authentication
-Trusted credential provider	Not bundled
-External approval verifier for WRITE / CRITICAL	Not bundled
-Live SNMP transport	Not implemented; fails closed
-ACS / CWMP / USP and live provisioning	Mock/simulation only
-Physical-router and hardware validation	Not verified
-Windows-specific security and live Winbox behavior	Not verified
-Continuous monitoring and alerting	Out of scope
+Layer	What it contains	What it does
+🧠 THE BRAIN	SKILL.md, provisioning/, quality-control/, references and playbooks	Vendor-aware reasoning, technical SOPs, troubleshooting, QC criteria, discovery methodology, and safety rules
+🛠️ THE HANDS	engine/, scripts/	Operations gateway, policy enforcement, connector code paths, adapters, simulated workflows, evidence handling, and reports
 
 
-Do not treat a passing mock test as proof of live-device compatibility. Do not enable live writes or critical changes until production identity, credential, and approval providers are integrated and independently validated.
-Architecture
+The repository includes Skill mirrors for OpenAI Codex and Claude Code. Install the Skill into an agent to make its network-engineering instructions available. The Operations Engine is a separate software component: installing the Skill does not automatically connect an AI agent to routers, credentials, or local execution tools.
+✨ Core modules
+<table>
+<tr>
+<td width="50%" valign="top">01 · Advanced Network Operations
+- Vendor-aware troubleshooting guidance
+- Scoped, on-demand diagnostics
+- Connector-selection logic
+- Configuration planning
+- Pre-check and rollback considerations
+</td>
+<td width="50%" valign="top">02 · ISP Provisioning & Remote Management
+- PPPoE / IPoE, BNG, VLAN and QinQ references
+- GPON / EPON / XGS-PON ONT/ONU guidance
+- TR-069 / CWMP and TR-369 / USP references
+- Remote-management security and credential hygiene
+- Simulated provisioning workflows
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">03 · Advanced Device Quality Control
+- Model-aware device profiles
+- Physical, power, Ethernet, wireless and optical checks
+- Evidence references and provenance
+- Mandatory-check blocking
+- QC history and retest records
+- JSON, CSV, PDF and optional XLSX reports
+</td>
+<td width="50%" valign="top">04 · Network Discovery & Topology Mapping
+- Imported/mock LLDP, CDP and MNDP evidence
+- Layer 2 / Layer 3 neighbor parsing
+- VERIFIED, INFERRED, UNKNOWN confidence labels
+- Evidence-backed topology graph
+- SVG and self-contained HTML exports
+- No link creation from shared subnet alone
+</td>
+</tr>
+</table>🏗️ Architecture
 ```mermaid
-flowchart TB
-    A["Natural-language request"] --> B["THE BRAIN<br/>Network Engineering Skill"]
-    B --> B1["Identify device, vendor and capabilities"]
-    B1 --> B2["Plan scoped discovery and diagnostics"]
-    B2 --> B3["Select an appropriate connector"]
-    B3 --> B4["Prepare pre-check, change and rollback plan"]
-    B4 --> C["Classify operation"]
-    C --> D{"Authorization and approval valid?"}
-    D -- "No" --> X["Reject / fail closed"]
-    D -- "Yes" --> E["THE HANDS<br/>Operations Engine"]
-    E --> F["Policy enforcement and audit"]
-    F --> G["Connector / adapter / simulated workflow"]
-    G --> H["Evidence, results and reports"]
+flowchart TD
+    A["Network engineering request"] --> B["🧠 THE BRAIN<br/>Network Engineering Skill"]
+    B --> C["Identify vendor, device and task"]
+    C --> D["Plan checks, connector and workflow"]
+    D --> E["Classify operation"]
+    E --> F{"Authorization / approval valid?"}
+    F -- "No" --> G["Reject · Fail closed"]
+    F -- "Yes" --> H["🛠️ THE HANDS<br/>Operations Engine"]
+    H --> I["Policy enforcement + audit"]
+    I --> J["Connector / adapter / simulation"]
+    J --> K["Evidence · Result · Report"]
 ```
-The Brain — Network Engineering Skill
-The Skill provides the reasoning and operational rules used to:
-- Identify device categories, capabilities, and firmware constraints.
-- Plan scoped discovery and corroborate network adjacencies.
-- Select an appropriate connector path, such as RouterOS API, SSH, or Winbox.
-- Structure multi-stage operations with pre-checks, execution plans, and rollback considerations.
-- Classify operations as READ_ONLY, DIAGNOSTIC, WRITE, or CRITICAL.
-- Apply safety rules, credential-redaction requirements, and vendor-aware guidance.
-The Hands — Operations Engine
-The execution layer provides:
-- A shared OperationsEngine workflow gateway.
-- Authorization and policy enforcement.
-- SSH and REST code paths, a fail-closed SNMP interface, and mock connectors.
-- Vendor adapters and a conservative capability registry.
-- Imported-evidence discovery and topology processing.
-- On-demand analysis of supplied or mock measurements.
-- QC evidence, decisions, session history, and report generation.
-- Structured JSONL audit logging with secret redaction.
-- A guarded Winbox integration wrapper whose live Windows behavior remains unverified.
-Core modules
-1. Advanced Network Operations
-Provides network troubleshooting and operational workflows, supported by the shared policy and audit lifecycle.
-- Vendor-aware troubleshooting guidance and evidence handling.
-- Scoped, on-demand diagnostics.
-- Connector-selection logic.
-- Configuration planning with pre-check and rollback considerations.
-- Live troubleshooting connectors remain disabled until trusted production providers are available.
-2. ISP Provisioning & Remote Management
-Provides reference material and simulated workflows for ISP access and subscriber-management scenarios.
-- PPPoE / IPoE, BNG, VLAN, and QinQ workflow references.
-- GPON / EPON / XGS-PON ONT and ONU guidance.
-- TR-069 / CWMP and TR-369 / USP references.
-- Remote-management security, RBAC, and credential-hygiene guidance.
-- ACS and provisioning workflows are mock/simulation only; no live provisioning transport is bundled.
-3. Advanced Device Quality Control
-Provides model-aware QC workflows with evidence tracking and report generation.
-- Device profiles and vendor-specific inspection criteria.
-- Physical, power, Ethernet, wireless, and optical inspection categories.
-- Evidence references and provenance retention.
-- Mandatory-check blocking and missing-evidence detection.
-- QC history and retest records.
-- JSON, CSV, and PDF reporting; XLSX output is available when openpyxl is installed.
-A PASS for mandatory checks requires validated evidence or a distinct manual attestation. A submitted value alone should not be treated as independently verified evidence.
-4. Network Discovery & Topology Mapping
-Processes imported or mock Layer 2 and Layer 3 neighbor evidence into confidence-labelled topology graphs.
-
-Supported evidence formats and sources include:
-- MikroTik RouterOS MNDP / LLDP output.
-- Cisco IOS / IOS-XE CDP neighbor output.
-- IEEE 802.1AB LLDP output from supported vendor environments.
-- Bridge Host / FDB forwarding tables and DHCP lease evidence.
-Topology confidence labels:
-Label	Meaning
-VERIFIED	Bidirectional adjacency corroborated from both endpoints
-INFERRED	Unidirectional neighbor observation or switch access-port correlation
-UNKNOWN	Uncorroborated host hint or conflicting bridge-port records
-
-
-The topology engine does not create links based only on shared IP subnets. It can export SVG and a self-contained HTML evidence viewer; network-derived text is escaped.
-
-The current release does not include a live LLDP/CDP/MNDP/SNMP collector, live subnet scanning, or physical-link validation.
-Permission and execution model
-Every operation must declare its classification before execution.
-Classification	Intended scope	Approval / safeguard
-READ_ONLY	Explicitly allowlisted reads and offline evidence inspection	Authenticated context and device scope; live use additionally requires production identity and credentials
-DIAGNOSTIC	Scoped, bounded, on-demand diagnostics	Explicit diagnostic scope; live use requires trusted production identity and credentials
-WRITE	Configuration changes	External approval bound to requester, canonical target, exact diff, and expiry
-CRITICAL	High-impact changes	External exact-diff approval with two distinct approvers, separate from the requester
-
-
-Security controls
-- Production authentication is not available in this distribution; ProdAuthProvider is a placeholder and rejects authentication.
-- Development identities default to READ_ONLY.
-- DIAGNOSTIC requires explicit AGY_DEV_DIAGNOSTIC=1 opt-in.
-- Development identities cannot receive WRITE or CRITICAL.
-- No trusted credential provider is bundled.
-- WRITE and CRITICAL require an external approval verifier; no verifier is bundled.
-- SSH rejects unknown host keys and blocks shell operators.
-- REST requires HTTPS certificate validation and same-host relative endpoints.
-- Live SNMP transport is not implemented and fails closed.
-- Winbox live sessions require verified context, a canonical inventory target, and a trusted credential provider. Simulated targets cannot be opened as live sessions.
-- Troubleshooting evidence encryption uses AES-GCM. Windows DPAPI/ACL integration is not verified; non-Windows development key protection is explicitly insecure, and production storage fails closed.
-- Audit output uses JSONL with secret redaction.
-Repository structure
-network-engineering/
-├── SKILL.md
-├── README.md
-├── .agents/
-│   └── skills/network-engineering/
-├── .claude/
-│   └── skills/network-engineering/
-├── engine/
-│   ├── discovery/          # Imported-evidence discovery and neighbor parsers
-│   ├── topology/           # Topology graph and SVG/HTML visualizers
-│   ├── health/             # On-demand analysis of supplied/mock measurements
-│   ├── winbox/             # Winbox desktop integration wrapper
-│   ├── connectors/         # SSH, REST, SNMP interface, and mock connectors
-│   ├── adapters/           # Vendor adapters and capability registry
-│   ├── policy/             # Policy, identity context, and audit logging
-│   ├── execution/          # OperationsEngine orchestration
-│   ├── inventory/          # Device inventory
-│   └── cli/                # NetOps CLI
-├── provisioning/
-│   ├── pppoe/
-│   ├── ont-onu/
-│   ├── tr-069/
-│   ├── tr-369/
-│   ├── remote-management/
-│   └── playbooks/
-├── quality-control/
-│   ├── profiles/
-│   ├── vendor-checklists/
-│   ├── history/
-│   └── reports/
-├── scripts/
-│   ├── qc_engine/
-│   ├── acs_integration/
-│   └── redact.py
-└── tests/
-Getting started
-Requirements
-- Python 3.10 or newer.
-- pip.
-- Git, if cloning the repository.
-- Dependencies listed in requirements-dev.txt to run the complete development test suite.
-Install
+Operation lifecycle
+1. Understand the request and identify the target scope.
+2. Determine the required operation classification.
+3. Validate identity, permissions, target, and any required approval.
+4. Execute only through the configured and permitted workflow.
+5. Record results and evidence in the audit lifecycle.
+📦 Installation
+Choose the AI coding agent you use. The repository contains the Skill folders for both supported local installation paths.
+1. Requirements
+- Git
+- Python 3.10+
+- OpenAI Codex or Claude Code for agent-based Skill usage
+- PowerShell on Windows, or a terminal on Linux/macOS
+2. Clone the repository
 git clone https://github.com/Sainz11/network-engineering-skill.git
 cd network-engineering-skill
+The repository contains these Skill locations:
+.agents/skills/network-engineering/   # OpenAI Codex
+.claude/skills/network-engineering/   # Claude Code
+3A. Install for OpenAI Codex
+Option A — Project installation (recommended)
 
-python -m venv .venv
-Activate the virtual environment:
+If you open Codex with this repository as the project, the Skill is already in the repository-level .agents/skills/ location. Start Codex from the repository root:
+cd path\to\network-engineering-skill
+codex
+Codex scans repository-level .agents/skills/ folders. In Codex, use /skills to inspect available Skills or mention the Skill using $ if it appears in the selector.
+
+Option B — Install for all your projects (Windows PowerShell)
+
+Run from the cloned repository root:
+$destination = Join-Path $HOME ".agents\skills\network-engineering"
+
+if (Test-Path $destination) {
+    Write-Host "Skill already exists at: $destination" -ForegroundColor Yellow
+    Write-Host "Back it up or choose a different destination before installing."
+} else {
+    New-Item -ItemType Directory -Force -Path (Split-Path $destination) | Out-Null
+    Copy-Item ".agents\skills\network-engineering" $destination -Recurse
+    Write-Host "Installed Codex Skill to: $destination" -ForegroundColor Green
+}
+Linux / macOS
+
+Run from the cloned repository root:
+mkdir -p "$HOME/.agents/skills"
+cp -R ".agents/skills/network-engineering" "$HOME/.agents/skills/"
+Restart Codex if the Skill does not appear after installation.
+3B. Install for Claude Code
+Option A — Project installation (recommended)
+
+Open Claude Code from the repository root. The project Skill is already located under .claude/skills/:
+cd path\to\network-engineering-skill
+claude
+Claude Code discovers project Skills from .claude/skills/. The Skill can be invoked as /network-engineering when its directory/frontmatter name is network-engineering.
+
+Option B — Install for all your projects (Windows PowerShell)
+
+Run from the cloned repository root:
+$destination = Join-Path $HOME ".claude\skills\network-engineering"
+
+if (Test-Path $destination) {
+    Write-Host "Skill already exists at: $destination" -ForegroundColor Yellow
+    Write-Host "Back it up or choose a different destination before installing."
+} else {
+    New-Item -ItemType Directory -Force -Path (Split-Path $destination) | Out-Null
+    Copy-Item ".claude\skills\network-engineering" $destination -Recurse
+    Write-Host "Installed Claude Code Skill to: $destination" -ForegroundColor Green
+}
+Linux / macOS
+
+Run from the cloned repository root:
+mkdir -p "$HOME/.claude/skills"
+cp -R ".claude/skills/network-engineering" "$HOME/.claude/skills/"
+Restart Claude Code if the Skill does not appear. Invoke it with:
+/network-engineering
+4. Verify the Skill files
+The Skill directory must contain SKILL.md at its root. Check both repository mirrors:
 
 Windows PowerShell
+Test-Path ".agents\skills\network-engineering\SKILL.md"
+Test-Path ".claude\skills\network-engineering\SKILL.md"
+A result of True means the corresponding file exists in that location. It does not by itself verify that the agent loaded the Skill or that operational tools are connected.
+5. Install Python dependencies (for the Operations Engine)
+Installing the Skill and installing the Python project are separate steps. If you also want to run the repository's local code and tests:
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-Linux / macOS
-source .venv/bin/activate
-Install development dependencies:
 python -m pip install --upgrade pip
 python -m pip install -r requirements-dev.txt
-If PowerShell blocks virtual-environment activation because of the execution policy, use an approved local environment setup method or run the commands from Command Prompt. Do not change system-wide security settings just to activate the environment.
+Linux / macOS activation:
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-dev.txt
+PowerShell note: If activation is blocked by your machine's execution policy, use Command Prompt or an approved local Python environment workflow. Avoid changing system-wide security settings just to activate the environment.
 
-Usage examples
-The examples below demonstrate the repository's current simulated/offline workflows. They do not establish live-device connectivity.
-1. Build a topology from mock evidence
+🚀 Quick start
+These examples use the current simulated/offline workflows. They do not establish live-device connectivity.
+Inspect inventory
+python engine/cli/netops_cli.py inventory
+Run a simulated read-only system-info action
+python engine/cli/netops_cli.py exec --device RTR-CORE-01 --action system_info --mode SIMULATED
+Build a topology from mock evidence
 from engine.discovery import DiscoveryCollector
 from engine.topology import TopologyEngine, TopologyVisualizer
-from engine.health import NetworkHealthAnalyzer
 
 collector = DiscoveryCollector(
     authorized_subnets=["10.0.0.0/16"]
@@ -208,32 +184,11 @@ discovered_devices = collector.discover_from_mock_environment()
 topology = TopologyEngine()
 devices, links = topology.build_topology(discovered_devices)
 
-topology_data = topology.export_topology_data()
-visualizer = TopologyVisualizer(topology_data)
-
+visualizer = TopologyVisualizer(topology.export_topology_data())
 visualizer.generate_svg("quality-control/reports/topology.svg")
-visualizer.generate_html_viewer(
-    "quality-control/reports/topology.html"
-)
-
-health_summary = NetworkHealthAnalyzer.generate_health_summary(
-    discovered_devices
-)
-
-print("Overall Network Health:", health_summary["overall_health"])
-2. Inspect device inventory
-python engine/cli/netops_cli.py inventory
-3. Inspect simulated device system information
-python engine/cli/netops_cli.py exec \
-  --device RTR-CORE-01 \
-  --action system_info \
-  --mode SIMULATED
-4. Run a QC session
-from scripts.qc_engine import (
-    QCTestEngine,
-    DeviceIdentity,
-    QCReportGenerator,
-)
+visualizer.generate_html_viewer("quality-control/reports/topology.html")
+Run a QC session
+from scripts.qc_engine import QCTestEngine, DeviceIdentity
 
 engine = QCTestEngine()
 
@@ -259,39 +214,124 @@ report = engine.run_qc_session(
     technician="NOC_Tech_01",
 )
 
-print("Final QC Status:", report.final_status.value)
-Testing
-Install the development dependencies, then run:
+print(report.final_status.value)
+🔐 Security model
+Every operation declares its classification before execution.
+Classification	Scope	Required safeguards
+READ_ONLY	Allowlisted reads and offline evidence inspection	Authenticated context and device scope; live use also needs production identity and credentials
+DIAGNOSTIC	Scoped, bounded, on-demand diagnostics	Explicit diagnostic scope; live use needs trusted production identity and credentials
+WRITE	Configuration changes	External approval bound to requester, canonical target, exact diff, and expiry
+CRITICAL	High-impact changes	External exact-diff approval from two distinct approvers, separate from requester
+
+
+Current security boundaries
+- ProdAuthProvider is a placeholder and rejects authentication.
+- Development identities default to READ_ONLY.
+- DIAGNOSTIC requires explicit AGY_DEV_DIAGNOSTIC=1 opt-in.
+- Development identities cannot receive WRITE or CRITICAL.
+- No trusted production credential provider is bundled.
+- No external approval verifier is bundled; live WRITE and CRITICAL operations are therefore unavailable.
+- SSH rejects unknown host keys and blocks shell operators.
+- REST requires HTTPS certificate validation and same-host relative endpoints.
+- Live SNMP transport is not implemented and fails closed.
+- Winbox live behavior and Windows-specific security integration are not verified.
+- AES-GCM is used for troubleshooting evidence encryption; Windows DPAPI/ACL integration is not verified. Non-Windows development key protection is explicitly insecure, and production storage fails closed.
+📁 Repository structure
+network-engineering-skill/
+├── SKILL.md
+├── README.md
+├── .agents/
+│   └── skills/network-engineering/    # Codex Skill mirror
+├── .claude/
+│   └── skills/network-engineering/    # Claude Code Skill mirror
+├── engine/
+│   ├── discovery/
+│   ├── topology/
+│   ├── health/
+│   ├── winbox/
+│   ├── connectors/
+│   ├── adapters/
+│   ├── policy/
+│   ├── execution/
+│   ├── inventory/
+│   └── cli/
+├── provisioning/
+│   ├── pppoe/
+│   ├── ont-onu/
+│   ├── tr-069/
+│   ├── tr-369/
+│   ├── remote-management/
+│   └── playbooks/
+├── quality-control/
+│   ├── profiles/
+│   ├── vendor-checklists/
+│   ├── history/
+│   └── reports/
+├── scripts/
+│   ├── qc_engine/
+│   ├── acs_integration/
+│   └── redact.py
+└── tests/
+🧪 Testing
+Install the development dependencies first, then run:
 python -m compileall -q engine scripts tests
 python -m pytest -q -rs
-The automated test suite covers:
-- Discovery and topology: imported/mock evidence parsing, neighbor parsers, bidirectional corroboration, SVG/HTML escaping, and on-demand health analysis.
-- Winbox wrapper: process detection, installation-path resolution, GUI-launch logic, UI automation helpers, evidence screenshot recording, and connector selection. Live Windows behavior remains unverified.
-- Operations Engine and policy: operation classification, fail-closed approval checks, exact-diff binding, simulated module workflows, and structured audit logging.
-- Device QC: model-aware thresholds, mandatory-check blocking, missing-evidence detection, and report generation.
-- ACS / CWMP: mock-only workflows and provisioning simulations.
-- Security: secret-redaction behavior and relevant policy safeguards.
-- Real-router validation: a dedicated optional test path. If LAB_MIKROTIK_IP is not configured, the hardware test is skipped and must be reported as NOT VERIFIED.
-For the release-specific verification record, see [`FINAL_VERIFICATION.md`](FINAL_VERIFICATION.md).
-Documentation and audit references
+The automated suite covers imported/mock discovery evidence, topology parsing and exports, Winbox wrapper logic, Operations Engine policy workflows, QC validation and reports, mock ACS workflows, and security/secret-redaction behavior.
+
+The optional real-router test is skipped when LAB_MIKROTIK_IP is not configured. A skipped hardware test means NOT VERIFIED, not passed hardware validation.
+
+For the release-specific record, see [`FINAL_VERIFICATION.md`](FINAL_VERIFICATION.md).
+🧩 What installation does — and does not do
+Installing the Skill gives the agent…	It does not automatically give the agent…
+Network-engineering instructions and SOPs	Router credentials
+Vendor-aware troubleshooting guidance	Access to your local network
+QC and discovery methodology	A live SSH / API / SNMP connection
+Permission and safety rules	Permission to change device configuration
+References to project workflows	A running Operations Engine or MCP server
+
+
+The Skill is the knowledge layer. The Operations Engine and any trusted connector/provider are the execution layer. They must be configured and authorized separately.
+🧯 Troubleshooting
+<details>
+<summary><strong>Codex does not show the Skill</strong></summary>- Confirm the folder is under .agents/skills/network-engineering/.
+- Confirm SKILL.md exists directly inside that folder.
+- Open Codex from the repository root for project-level discovery.
+- Run /skills and restart Codex if necessary.
+- For global installation, confirm the destination is $HOME/.agents/skills/network-engineering/.
+</details><details>
+<summary><strong>Claude Code does not show /network-engineering</strong></summary>- Confirm the folder is under .claude/skills/network-engineering/.
+- Confirm SKILL.md exists directly inside that folder.
+- Confirm the Skill's frontmatter and directory name are valid.
+- Restart Claude Code.
+- For global installation, confirm the destination is $HOME/.claude/skills/network-engineering/.
+</details><details>
+<summary><strong>The agent knows the Skill but cannot connect to a router</strong></summary>That is expected with the current release configuration. Installing a Skill does not install credentials, a production identity provider, an approval verifier, or a live connector. Current workflows are simulation/offline unless a separately validated integration is configured.
+</details><details>
+<summary><strong>Python reports a missing module</strong></summary>
+Activate the project's virtual environment and install the dependencies:
+python -m pip install -r requirements-dev.txt
+</details>📚 Documentation
 - [`SKILL.md`](SKILL.md) — canonical Skill instructions.
 - [`MODULES.md`](MODULES.md) — module coverage and status.
 - [`AUDIT_AND_IMPLEMENTATION_PLAN.md`](AUDIT_AND_IMPLEMENTATION_PLAN.md) — audit and implementation tracking.
 - [`FINAL_VERIFICATION.md`](FINAL_VERIFICATION.md) — release-candidate verification record.
-Scope boundaries
-This project focuses on on-demand network engineering workflows. It does not provide:
-- Continuous monitoring or background polling.
-- Scheduled telemetry collection or automatic alerting.
-- A bundled production identity, credential-vault, or approval service.
-- Verified live SNMP, ACS/CWMP/USP, or subscriber provisioning transport.
-- A guarantee of compatibility with physical devices based only on simulated tests.
-Contributing
-Contributions should preserve the separation between the Brain and the Hands, maintain fail-closed behavior, and include regression tests for changes to authorization, connector selection, evidence handling, or execution workflows.
+🚧 Scope and roadmap boundaries
+This project focuses on on-demand network engineering workflows. Continuous monitoring, background polling, scheduled telemetry, and automatic alerting are intentionally out of scope.
 
-Before submitting changes:
-1. Keep operational claims aligned with implemented and verified behavior.
-2. Add or update tests for changed behavior.
+The following integrations remain unverified or unavailable in this release:
+- Production authentication, credential-vault, and external approval providers.
+- Live SNMP transport.
+- Production ACS / CWMP / USP and subscriber provisioning transport.
+- Live device discovery and physical-link validation.
+- Windows-specific security behavior and live Winbox sessions.
+- Physical-router and hardware validation.
+🤝 Contributing
+Contributions should preserve the Brain/Hands separation and fail-closed security model.
+1. Keep README claims aligned with implemented and verified behavior.
+2. Add regression tests for changes to authorization, connectors, evidence handling, and execution workflows.
 3. Run the compile and test commands above.
-4. Document any live-integration or hardware-validation requirement that remains outstanding.
-License
-No license information was present in the supplied README content. Add a LICENSE file and update this section before describing the project as open source or granting reuse rights.
+4. Document any integration or hardware validation that remains outstanding.
+📄 License
+No license file was identified in the supplied README. Add a LICENSE file before presenting this repository as open source or granting reuse rights.
+<div align="center">THE BRAIN plans. THE HANDS enforce. Every operation stays within its authorization boundary.
+</div>
