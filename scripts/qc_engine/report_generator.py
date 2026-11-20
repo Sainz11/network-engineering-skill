@@ -175,7 +175,8 @@ class QCReportGenerator:
         os.close(fd)
         try:
             workbook.save(temp_path)
-            with open(temp_path, "rb") as stream:
+            with open(temp_path, "rb+") as stream:
+                stream.flush()
                 os.fsync(stream.fileno())
             os.replace(temp_path, output_path)
         finally:

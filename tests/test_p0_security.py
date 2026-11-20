@@ -313,7 +313,12 @@ class TestSafeJoin(unittest.TestCase):
         target = self.base / "target_dir"
         target.mkdir()
         link = self.base / "linked_dir"
-        link.symlink_to(target, target_is_directory=True)
+        try:
+            link.symlink_to(target, target_is_directory=True)
+        except OSError as exc:
+            if getattr(exc, "winerror", None) == 1314:
+                self.skipTest("Windows symlink creation requires an enabled privilege")
+            raise
         with self.assertRaises(PathTraversalError):
             safe_join(self.base, "linked_dir", "file.txt")
 
@@ -352,7 +357,7 @@ class TestSafeJoin(unittest.TestCase):
                 self.skipTest(f"Failed to create junction: {res.stderr}")
             with self.assertRaises(PathTraversalError) as cm:
                 safe_join(self.base, "junction_link", "target_file.txt")
-            self.assertIn("Reparse point", str(cm.exception))
+            self.assertIn("reparse point", str(cm.exception).lower())
         finally:
             shutil.rmtree(str(target_dir), ignore_errors=True)
 
@@ -623,7 +628,12 @@ class TestPlaintextEvidenceRestriction(unittest.TestCase):
             target = Path(d) / "raw.txt"
             target.write_text("sensitive")
             link = Path(d) / "link.txt"
-            link.symlink_to(target)
+            try:
+                link.symlink_to(target)
+            except OSError as exc:
+                if getattr(exc, "winerror", None) == 1314:
+                    self.skipTest("Windows symlink creation requires an enabled privilege")
+                raise
             with self.assertRaises(EvidenceProtectionError):
                 read_raw_output(link, "")
 

@@ -60,34 +60,72 @@ class TestPackagingHygiene(unittest.TestCase):
         self.assertIn("audit_trail.jsonl", text)
 
     def test_zip_artifact_hygiene_if_present(self):
-        """If network-engineering-skill-fixed.zip exists, verify its contents are clean."""
+        """Inspect an explicitly configured or repository-local release ZIP."""
         zip_candidates = [
-            pathlib.Path(r"C:/Users/dell/.gemini/antigravity/brain/b71373f6-3fd8-4c49-8c4b-8654436a4a7e/network-engineering-skill-fixed.zip"),
             REPO_ROOT / "network-engineering-skill-fixed.zip",
             REPO_ROOT / "network-engineering-skill-final.zip",
         ]
-        tested = False
-        for zpath in zip_candidates:
-            if zpath.exists():
-                tested = True
+
+        configured_zip = os.environ.get("NETWORK_ENGINEERING_RELEASE_ZIP")
+        if configured_zip:
+            configured_path = pathlib.Path(configured_zip).expanduser()
+            self.assertTrue(
+                configured_path.is_file(),
+                f"NETWORK_ENGINEERING_RELEASE_ZIP does not exist: {configured_path}",
+            )
+            zip_candidates.insert(0, configured_path)
+
+        existing = list(dict.fromkeys(
+            path.resolve() for path in zip_candidates if path.is_file()
+        ))
+        if not existing:
+            self.skipTest(
+                "No repository-local release ZIP found. "
+                "Set NETWORK_ENGINEERING_RELEASE_ZIP to test an external release ZIP."
+            )
+
+        for zpath in existing:
+            with self.subTest(archive=str(zpath)):
                 with zipfile.ZipFile(str(zpath), "r") as zf:
                     names = set(zf.namelist())
                     for name in names:
-                        parts = pathlib.PurePosixPath(name).parts
-                        self.assertFalse(pathlib.PurePosixPath(name).is_absolute(), f"Absolute ZIP path: {name}")
+                        entry = pathlib.PurePosixPath(name)
+                        parts = entry.parts
+                        self.assertFalse(entry.is_absolute(), f"Absolute ZIP path: {name}")
                         self.assertNotIn("..", parts, f"ZIP path traversal: {name}")
                         for fdir in FORBIDDEN_DIRS:
-                            self.assertNotIn(fdir, parts, f"Forbidden cache directory '{fdir}' found in ZIP entry '{name}'")
+                            self.assertNotIn(
+                                fdir, parts,
+                                f"Forbidden cache directory '{fdir}' found in ZIP entry '{name}'"
+                            )
                         for ext in FORBIDDEN_EXTENSIONS:
-                            self.assertFalse(name.endswith(ext), f"Forbidden compiled bytecode '{ext}' found in ZIP entry '{name}'")
-                        basename = pathlib.PurePosixPath(name).name
-                        self.assertNotIn(basename, FORBIDDEN_FILES, f"Forbidden secret/log file found: {name}")
-                        self.assertFalse(basename.lower().startswith(".env.") and basename != ".env.example", f"Unexpected env file: {name}")
-                        self.assertFalse(pathlib.PurePosixPath(name).parts[0] == ".git", f"Git metadata must not ship: {name}")
-                        self.assertFalse(pathlib.PurePosixPath(name).parts[0] == "artifacts", f"Evidence artifacts must not ship: {name}")
-                    self.assertTrue(REQUIRED_ARCHIVE_FILES.issubset(names), f"Required files missing from ZIP: {REQUIRED_ARCHIVE_FILES - names}")
-        if not tested:
-            self.skipTest("No distribution zip found to inspect yet.")
+                            self.assertFalse(
+                                name.endswith(ext),
+                                f"Forbidden compiled bytecode '{ext}' found in ZIP entry '{name}'"
+                            )
+                        basename = entry.name
+                        self.assertNotIn(
+                            basename, FORBIDDEN_FILES,
+                            f"Forbidden secret/log file found: {name}"
+                        )
+                        self.assertFalse(
+                            basename.lower().startswith(".env.") and basename != ".env.example",
+                            f"Unexpected env file: {name}"
+                        )
+                        self.assertFalse(
+                            parts and parts[0] == ".git",
+                            f"Git metadata must not ship: {name}"
+                        )
+                        self.assertFalse(
+                            parts and parts[0] == "artifacts",
+                            f"Evidence artifacts must not ship: {name}"
+                        )
+
+                    self.assertTrue(
+                        REQUIRED_ARCHIVE_FILES.issubset(names),
+                        f"Required files missing from ZIP: {REQUIRED_ARCHIVE_FILES - names}"
+                    )
+
 
 
 if __name__ == "__main__":

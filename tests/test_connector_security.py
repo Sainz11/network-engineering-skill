@@ -112,7 +112,12 @@ class TestAuditHardening(unittest.TestCase):
             target = Path(d) / "real.log"
             target.write_text("safe")
             link = Path(d) / "audit.log"
-            link.symlink_to(target)
+            try:
+                link.symlink_to(target)
+            except OSError as exc:
+                if getattr(exc, "winerror", None) == 1314:
+                    self.skipTest("Windows symlink creation requires an enabled privilege")
+                raise
             with self.assertRaises(PermissionError):
                 AuditLogger(str(link))
 
@@ -124,7 +129,12 @@ class TestInventoryTrustBoundary(unittest.TestCase):
             target = Path(d) / "inventory.json"
             target.write_text("[]")
             link = Path(d) / "linked.json"
-            link.symlink_to(target)
+            try:
+                link.symlink_to(target)
+            except OSError as exc:
+                if getattr(exc, "winerror", None) == 1314:
+                    self.skipTest("Windows symlink creation requires an enabled privilege")
+                raise
             with self.assertRaises(PermissionError):
                 DeviceInventoryManager(str(link))
 
