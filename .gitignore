@@ -44,3 +44,34 @@ credentials/
 # Local configuration and device exports
 *.conf
 *.backup
+
+# Undesired documentation files
+testing.md
+*.test.md
+test_*.md
+final_verification.md
+audit.md
+implementation.md
+*_draft.md
+
+# Additional internal markdown files to keep private
+AUDIT_AND_IMPLEMENTATION_PLAN.md
+AUTHORIZATION.md
+CHANGELOG.md
+CONNECTORS.md
+FINAL_VERIFICATION.md
+LIMITATIONS.md
+MODULES.md
+OPERATIONS_GUIDE.md
+SECURITY.md
+SKILL.md
+TESTING.md
+VENDOR_SUPPORT.md
+devices/*.md
+examples/*.md
+playbooks/*.md
+provisioning/**/*.md
+quality-control/**/*.md
+references/**/*.md
+vendors/*.md
+wireless-engineering/*.md
